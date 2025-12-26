@@ -5,7 +5,47 @@
 
 ---
 
-### What is this?
+## TL;DR
+
+Install **Sublime Text** (default):
+
+```bash
+curl -LO https://raw.githubusercontent.com/franciscoernestoteixeira/sublime-linux/main/install-sublime.sh && chmod +x install-sublime.sh && ./install-sublime.sh
+```
+
+Install **Sublime Merge only**:
+
+```bash
+./install-sublime.sh --only merge
+```
+
+Install **both**:
+
+```bash
+./install-sublime.sh --only both
+```
+
+Preview what will happen (no changes):
+
+```bash
+./install-sublime.sh --dry-run
+```
+
+Uninstall **Sublime Text** (default target):
+
+```bash
+./install-sublime.sh --uninstall
+```
+
+Uninstall **both**:
+
+```bash
+./install-sublime.sh --uninstall --only both
+```
+
+---
+
+## What is this?
 
 This repository provides a **single script** (`install-sublime.sh`) that installs:
 
@@ -25,7 +65,7 @@ Everything stays inside your home directory.
 
 ---
 
-### What the script does
+## What the script does
 
 When you run `install-sublime.sh`, it will:
 
@@ -63,7 +103,7 @@ sublime_merge-current
 
 ---
 
-### Requirements
+## Requirements
 
 - Linux (any modern distribution)
 - Internet connection
@@ -95,38 +135,46 @@ chmod +x install-sublime.sh
 
 ### Step 3 — Run it
 
+By default, this installs **Sublime Text only**:
+
 ```bash
 ./install-sublime.sh
 ```
 
-That’s all.
+---
+
+## Options (quick reference)
+
+| Option | Description |
+|------|-------------|
+| *(no flags)* | Install **Sublime Text** only (default) |
+| `--only text` | Install **Sublime Text** only |
+| `--only merge` | Install **Sublime Merge** only |
+| `--only both` | Install **both** Sublime Text and Merge |
+| `--clean-old` | Remove older versioned folders after install |
+| `--dry-run` | Show what would happen, without changes |
+| `--uninstall` | Uninstall what you selected with `--only` (default target is Text) |
+
+Options can be combined:
+
+```bash
+./install-sublime.sh --only both --clean-old
+./install-sublime.sh --only merge --dry-run
+./install-sublime.sh --uninstall --only merge
+./install-sublime.sh --uninstall --only both --dry-run
+```
 
 ---
 
 ## Updating later
 
-To update both applications to the latest version:
+To update what you previously installed:
 
 ```bash
 update-sublime
 ```
 
----
-
-## Optional flags
-
-### --clean-old
-
-Removes **older versioned folders** after a successful update, keeping only:
-
-- the latest installed version
-- the `*-current` symlink
-
-Example:
-
-```bash
-./install-sublime.sh --clean-old
-```
+The updater preserves your original install options (except `--dry-run`).
 
 ---
 
@@ -161,17 +209,33 @@ Other locations:
 
 ## Uninstalling
 
-To remove everything installed by the script:
+Recommended (uses the script):
 
-```
-rm -rf ~/Applications/sublime_text*
-rm -rf ~/Applications/sublime_merge*
-rm ~/.local/bin/subl ~/.local/bin/smerge ~/.local/bin/update-sublime
-rm ~/.local/share/applications/subl.desktop
-rm ~/.local/share/applications/smerge.desktop
+Uninstall **Sublime Text**:
+
+```bash
+./install-sublime.sh --uninstall
 ```
 
-User configuration files are **not** removed.
+Uninstall **Sublime Merge**:
+
+```bash
+./install-sublime.sh --uninstall --only merge
+```
+
+Uninstall **both**:
+
+```bash
+./install-sublime.sh --uninstall --only both
+```
+
+Preview uninstall without changes:
+
+```bash
+./install-sublime.sh --uninstall --only both --dry-run
+```
+
+The script does **not** remove your user configuration files (settings, plugins).
 
 ---
 
