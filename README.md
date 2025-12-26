@@ -5,8 +5,6 @@
 
 ---
 
-## 🇺🇸 English
-
 ### What is this?
 
 This repository provides a **single script** (`install-sublime.sh`) that installs:
@@ -80,18 +78,16 @@ sublime_merge-current
 
 ### Step 1 — Download the installer
 
-```
+```bash
 cd ~/Downloads
-curl -LO https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/sublime-linux/main/install-sublime.sh
+curl -LO https://raw.githubusercontent.com/franciscoernestoteixeira/sublime-linux/main/install-sublime.sh
 ```
-
-Replace `<YOUR_GITHUB_USERNAME>` with your GitHub username.
 
 ---
 
 ### Step 2 — Make it executable
 
-```
+```bash
 chmod +x install-sublime.sh
 ```
 
@@ -99,7 +95,7 @@ chmod +x install-sublime.sh
 
 ### Step 3 — Run it
 
-```
+```bash
 ./install-sublime.sh
 ```
 
@@ -111,7 +107,7 @@ That’s all.
 
 To update both applications to the latest version:
 
-```
+```bash
 update-sublime
 ```
 
@@ -128,7 +124,7 @@ Removes **older versioned folders** after a successful update, keeping only:
 
 Example:
 
-```
+```bash
 ./install-sublime.sh --clean-old
 ```
 
@@ -163,24 +159,6 @@ Other locations:
 
 ---
 
-## Screenshots
-
-Place screenshots under:
-
-```
-docs/screenshots/
-```
-
-Example references:
-
-```
-docs/screenshots/menu.png
-docs/screenshots/sublime-text.png
-docs/screenshots/sublime-merge.png
-```
-
----
-
 ## Uninstalling
 
 To remove everything installed by the script:
@@ -198,60 +176,5 @@ User configuration files are **not** removed.
 ---
 
 ## License
-
-MIT License.
-
----
-
-## 🇧🇷 Português (Brasil)
-
-### O que é isso?
-
-Este repositório fornece um **script único** (`install-sublime.sh`) para instalar:
-
-- **Sublime Text**
-- **Sublime Merge**
-
-usando os **binários oficiais (.tar.xz)** da Sublime HQ.
-
-Evita problemas comuns como:
-- repositórios RPM quebrados (Fedora 43+)
-- Flatpak desatualizado
-- limitações do Snap
-
-Sem `sudo`.  
-Sem alterações no sistema.  
-Tudo fica dentro do seu usuário.
-
----
-
-### Como instalar
-
-```
-cd ~/Downloads
-curl -LO https://raw.githubusercontent.com/<SEU_USUARIO_GITHUB>/sublime-linux/main/install-sublime.sh
-chmod +x install-sublime.sh
-./install-sublime.sh
-```
-
----
-
-### Atualizar depois
-
-```
-update-sublime
-```
-
----
-
-### Opção extra
-
-```
-./install-sublime.sh --clean-old
-```
-
----
-
-## Licença
 
 MIT License.
