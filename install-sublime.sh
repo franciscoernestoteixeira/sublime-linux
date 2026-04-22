@@ -288,7 +288,7 @@ clean_old_versions() {
 install_one() {
   local key="$1"
   local page="$2"
-  local extracted_root="$3"
+  local extracted_root="$3"   # kept for compatibility, no longer trusted
   local bin="$4"
   local icon_rel="$5"
   local desktop_cmd="$6"
@@ -313,7 +313,8 @@ install_one() {
   local target="$APPDIR/$versioned_dir"
 
   if $DRY_RUN; then
-    log "[dry-run] would extract $cache_file, move '$extracted_root/' into: $target"
+    log "[dry-run] would inspect archive root from: $cache_file"
+    log "[dry-run] would extract $cache_file into: $target"
     log "[dry-run] would set symlink: $APPDIR/${key}-current -> $target"
     log "[dry-run] would set launcher: $BINDIR/$desktop_cmd -> $APPDIR/${key}-current/$bin"
     log "[dry-run] would write desktop file: $DESKTOPDIR/${desktop_cmd}.desktop (Name=${desktop_name})"
@@ -324,11 +325,25 @@ install_one() {
   local tmp
   tmp="$(mktemp -d)"
 
+  log "==> Inspecting archive root..."
+  local archive_root
+  archive_root="$(
+  tar -tf "$cache_file" | awk '
+      NR == 1 {
+        gsub(/^\.\//, "", $0)
+        split($0, a, "/")
+        print a[1]
+      }
+    '
+  )"
+  [[ -n "$archive_root" ]] || die "Could not detect archive root from: $cache_file"
+  log "==> Archive root detected: $archive_root"
+
   log "==> Extracting ${key} to temp..."
   tar -xf "$cache_file" -C "$tmp"
 
-  local src="$tmp/$extracted_root"
-  [[ -d "$src" ]] || die "Expected extracted folder not found: $src"
+  local src="$tmp/$archive_root"
+  [[ -d "$src" ]] || die "Expected extracted folder not found after extraction: $src"
 
   log "==> Installing to: $target"
   rm -rf "$target"
